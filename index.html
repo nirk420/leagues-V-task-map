@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base target="_top">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Leagues V Map</title>
+	<link rel="icon" type="image/x-icon" href="https://oldschool.runescape.wiki/images/World_map_icon.png?6dae2">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.leaflet-container {
+			height: 800px;
+			width: 1200px;
+			max-width: 100%;
+			max-height: 100%;
+		}
+		.collapsible {
+			background-color: #777;
+			color: white;
+			cursor: pointer;
+			padding: 18px;
+			width: 100%;
+			border: solid;
+			border-color: black;
+			text-align: left;
+			outline: none;
+			font-size: 15px;
+		}
+
+		.active, .collapsible:hover {
+			background-color: #555;
+		}
+
+		.collapsible:after {
+			content: '\002B';
+			color: white;
+			font-weight: bold;
+			float: right;
+			margin-left: 5px;
+		}
+
+		.active:after {
+			content: "\2212";
+		}
+
+		.content {
+			padding: 0 18px;
+			max-height: 0;
+			overflow: hidden;
+			transition: max-height 0.2s ease-out;
+			background-color: #f1f1f1;
+		}
+		
+		.generalTaskList {
+			width: 100%;
+			border: none;
+			padding: 10px 10px;
+			text-align: left;
+			text-decoration: none;
+			font-size: 14px;
+		}
+
+		.generalTaskList:hover {
+			background-color: #DCDCDC;
+			transition: background-color 0.2s ease-in;
+		}
+		
+		.strike {
+			text-decoration: line-through;
+}
+	</style>
+
+	
+</head>
+<body style= "background-color: #808080">
+
+<table style="width:100%">
+  <tr>
+    <td style= "vertical-align:top">
+	<!--Map and tasks markers on map-->
+		<div id="map" style="width: 1200px; height: 800px; margin-top: 30px"></div>
+		<script>
+
+			var map = L.map('map', {crs: L.CRS.Simple, minZoom: 1, maxZoom: 4});
+
+			var bounds = [[0,0], [761,1348]];
+			var image = L.imageOverlay('map.png', bounds).addTo(map);
+			map.fitBounds(bounds);
+			map.setView( [350, 980], 3);
+			
+			var popup = L.popup();
+
+			/*function onMapClick(e) {
+				popup
+					.setLatLng(e.latlng)
+					.setContent(e.latlng.toString())
+					.openOn(map);
+					}
+			map.on('click', onMapClick);*/
+			
+			
+			//karamja tasks
+			var karambwanji = L.latLng([ 240, 815 ]);
+			L.marker(karambwanji).addTo(map).bindPopup("Catch a Karambwanji");
+			var bananaCrate = L.latLng([ 304.5, 878.37 ]);
+			L.marker(bananaCrate).addTo(map).bindPopup("Fill a Crate With Bananas(10 bananas)");
+			var killSnake = L.latLng([ 308, 849 ]);
+			L.marker(killSnake).addTo(map).bindPopup("Kill a Snake in Karamja");
+			var pineapple = L.latLng([ 309, 791 ]);
+			L.marker(pineapple).addTo(map).bindPopup("Pick a Pineapple on Karamja");
+			var agilityTicket = L.latLng([ 322.8, 816 ]);
+			L.marker(agilityTicket).addTo(map).bindPopup("Buy a Snapdragon (10 Arena Tickets)");
+			var karamjaSalmon = L.latLng([ 221.6, 838.3 ]);
+			L.marker(karamjaSalmon).addTo(map).bindPopup("Catch a Salmon (30 fishing)");
+			var shiloShortcut = L.latLng([ 222.125, 841.625 ]);
+			L.marker(shiloShortcut).addTo(map).bindPopup("Take a Shortcut Across the Shilo Village River (32 Agility)");
+			var paramayaInn = L.latLng([ 232.25, 840.75 ]);
+			L.marker(paramayaInn).addTo(map).bindPopup("Buy Paramaya Ticket(35 coins)");
+			var brimDungeon = L.latLng([ 305.5, 785.9375 ]);
+			L.marker(brimDungeon).addTo(map).bindPopup("Kill Greater Demon, Steel dragon (875 coins, axe)");
+			var killTzhaar = L.latLng([ 311.875, 837.875 ]);
+			L.marker(killTzhaar).addTo(map).bindPopup("Defeat a TzHaar");
+
+
+			//Misthalin tasks
+			var bob = L.latLng([ 328.3125, 1012.4375 ]);
+			L.marker(bob).addTo(map).bindPopup("Ask for a Quest from Bob, buy steel axe(200 coins)");
+			var potatoTree = L.latLng([ 361.4375, 973.125 ]);
+			L.marker(potatoTree).addTo(map).bindPopup("Chop a log from a potato tree");
+			var draynorAgility = L.latLng([ 363.5625, 953.125 ]);
+			L.marker(draynorAgility).addTo(map).bindPopup("Complete 10 Laps of the Draynor Agility Course");
+			var quiz = L.latLng([ 444.125, 1023.4375 ]);
+			L.marker(quiz).addTo(map).bindPopup("Complete the Natural History Quiz");
+			var aa = L.latLng([ 426.3125, 1007.0625 ]);
+			L.marker(aa).addTo(map).bindPopup("Complete 10 Laps of the Varrock Agility Course(30 agility)");
+			var wizardTower = L.latLng([ 308.6875, 955.6875 ]);
+			L.marker(wizardTower).addTo(map).bindPopup("Defeat the Lesser Demon in the Wizards' Tower");
+			var longHall = L.latLng([ 439, 941.1875 ]);
+			L.marker(longHall).addTo(map).bindPopup("Drink a beer in the Longhall");
+			var onion = L.latLng([ 358.25, 993 ]);
+			L.marker(onion).addTo(map).bindPopup("Eat an Onion");
+			var zanaris = L.latLng([ 312.875, 998.5625 ]);
+			L.marker(zanaris).addTo(map).bindPopup("Enter Zanaris");
+			var chairFollow = L.latLng([ 402.6875, 958.625 ]);
+			L.marker(chairFollow).addTo(map).bindPopup("Get a chair to follow you");
+			var haircut = L.latLng([ 448.8125, 1023.5 ]);
+			L.marker(haircut).addTo(map).bindPopup("Get a haircut");
+			var darkWizard = L.latLng([ 405.9375, 1010.6875 ]);
+			L.marker(darkWizard).addTo(map).bindPopup(" revenge against a Dark Wizard");
+			var elise = L.latLng([ 460.0625, 1023.1875 ]);
+			L.marker(elise).addTo(map).bindPopup("Have Elsie tell you a story(cup of tea)");
+			var nedRope = L.latLng([ 354, 951.0625 ]);
+			L.marker(nedRope).addTo(map).bindPopup("Have Ned make you some rope(4 balls of wool)");
+			var aggie = L.latLng([ 354.4375, 944.875 ]);
+			L.marker(aggie).addTo(map).bindPopup("Insult Aggie the Witch");
+			var killBarbarian = L.latLng([ 431.125, 944.4375 ]);
+			L.marker(killBarbarian).addTo(map).bindPopup("Kill a Barbarian in the Barbarian Village");
+			var aa = L.latLng([ 370.0625, 1013 ]);
+			L.marker(aa).addTo(map).bindPopup("Kill a Chicken with your fists");
+			var aa = L.latLng([ 409.875, 973.5 ]);
+			L.marker(aa).addTo(map).bindPopup("Kill a Duck with a fire spell");
+			var aa = L.latLng([ 318.25, 1007.375 ]);
+			L.marker(aa).addTo(map).bindPopup("Kill a Frog");
+			var killGoblin = L.latLng([ 433.75, 961.5 ]);
+			L.marker(killGoblin).addTo(map).bindPopup("Kill a Goblin holding a spear");
+			var killMugger = L.latLng([ 416.5, 1021.375 ]);
+			L.marker(killMugger).addTo(map).bindPopup("Kill a Mugger");
+			var killRam = L.latLng([ 395.5, 1017.875 ]);
+			L.marker(killRam).addTo(map).bindPopup("Kill a Ram");
+			var killRat = L.latLng([ 446.625, 1015 ]);
+			L.marker(killRat).addTo(map).bindPopup("Kill a Rat, Slash a web");
+			var killSpider = L.latLng([ 341.125, 980.625 ]);
+			L.marker(killSpider).addTo(map).bindPopup("Kill a Spider by kicking it");
+			var pan = L.latLng([ 409, 1081.875 ]);
+			L.marker(pan).addTo(map).bindPopup("Pan for an Uncut Jade");
+			var strayDog = L.latLng([ 432.5, 988.25 ]);
+			L.marker(strayDog).addTo(map).bindPopup("Pet a Stray Dog in Varrock");
+			var campdog = L.latLng([ 608, 1248.25 ]);
+			L.marker(campdog).addTo(map).bindPopup("Pet the Museum Camp dog");
+			var varrockCabbage = L.latLng([ 413.6875, 1010.5625 ]);
+			L.marker(varrockCabbage).addTo(map).bindPopup("Pick a Cabbage in Varrock");
+			var lumbAltar = L.latLng([ 331.3125, 1018.125 ]);
+			L.marker(lumbAltar).addTo(map).bindPopup("Pray at an Altar in Lumbridge");
+			var stealTea = L.latLng([ 425.75, 1030.5 ]);
+			L.marker(stealTea).addTo(map).bindPopup("Steal From the Varrock Tea Stall");
+			var strokeCat = L.latLng([ 426, 975.125 ]);
+			L.marker(strokeCat).addTo(map).bindPopup("Stroke your cat(100 coins, Gertrude's Cat)");
+			var canoe = L.latLng([ 344.625, 1016.875 ]);
+			L.marker(canoe).addTo(map).bindPopup("Take a Canoe to Champions Guild (12 woodcutting)");
+			var hans = L.latLng([ 335.625, 1008.125 ]);
+			L.marker(hans).addTo(map).bindPopup("Talk to Hans (ask age)");
+			var toFossilIsland = L.latLng([ 441.625, 1074 ]);
+			L.marker(toFossilIsland).addTo(map).bindPopup("Travel to Fossil Island");
+			var tramp = L.latLng([ 416.25, 1002.125 ]);
+			L.marker(tramp).addTo(map).bindPopup("Upset the homeless");
+			var LumbyStairs = L.latLng([ 340.25, 1000.125 ]);
+			L.marker(LumbyStairs).addTo(map).bindPopup("Use the Northern Staircase in Lumbridge");
+			var fossilbank = L.latLng([ 610.4375, 1244.1875 ]);
+			L.marker(fossilbank).addTo(map).bindPopup("Build a Bank on Fossil Island (21 construction, 2 oak planks, an iron bar, 5 nails");
+			var butter = L.latLng([ 370.0625, 1010.0625 ]);
+			L.marker(butter).addTo(map).bindPopup("Churn some butter (lvl 38)");
+			var waterunes = L.latLng([ 310.1875, 990.1875 ]);
+			L.marker(waterunes).addTo(map).bindPopup("Craft 50 Water Runes");
+			var cookingGuild = L.latLng([ 442.375, 971.5 ]);
+			L.marker(cookingGuild).addTo(map).bindPopup("Enter the Cooks' Guild (32 cooking, chefs hat)");
+			var fancyBoots = L.latLng([ 429.0625, 942.0625 ]);
+			L.marker(fancyBoots).addTo(map).bindPopup("Equip Some Fancy Boots or Fighting Boots");
+			var shroomTele = L.latLng([ 643.625, 1260 ]);
+			L.marker(shroomTele).addTo(map).bindPopup("Fully Unlock the Mycelium Transportation System");
+			var gorak = L.latLng([ 303.25, 955.5625 ]);
+			L.marker(gorak).addTo(map).bindPopup("Get a Gem from a Gorak (fairy ring DIR)");
+			var mineEssence = L.latLng([ 420.75, 1022.125 ]);
+			L.marker(mineEssence).addTo(map).bindPopup("Mine 25 Pure Essence");
+			var darkChest = L.latLng([ 196.625, 584.1875 ]);
+			L.marker(darkChest).addTo(map).bindPopup("Open the Dark Chest(28 thieving)");
+			var soulWars = L.latLng([ 160.8125, 531.75 ]);
+			L.marker(soulWars).addTo(map).bindPopup("Win a Game of Soul Wars");
+			var HAM = L.latLng([ 350.875, 981.3125 ]);
+			L.marker(HAM).addTo(map).bindPopup("Pickpocket a H.A.M. Member (15 thieving, steel pickaxe, axe, iron dagger)");
+			var varrockGuard = L.latLng([ 432.9375, 1029.9375 ]);
+			L.marker(varrockGuard).addTo(map).bindPopup("Pickpocket a Varrock Guard (40 thieving, Open 28 Coin Pouches at once) and kill");
+			var buckle = L.latLng([ 423.6875, 1069.0625 ]);
+			L.marker(buckle).addTo(map).bindPopup("Provide Terry a buckle (trowel, specimen brush and specimen jar)");
+			var lumbyRange = L.latLng([ 333.625, 1002.25 ]);
+			L.marker(lumbyRange).addTo(map).bindPopup("Use the Range in Lumbridge Castle, burn food");
+			var thieveBullseye = L.latLng([ 333.375, 1000.125 ]);
+			L.marker(thieveBullseye).addTo(map).bindPopup("Pickpocket a Bullseye Lantern From a Cave Goblin");
+			
+			
+			
+			//general
+			var crewMember = L.latLng([ 343, 793.875 ]);
+			L.marker(crewMember).addTo(map).bindPopup("Buy Something From Trader Crewmembers");
+			var catchFish = L.latLng([ 305.0625, 1018.3125 ]);
+			L.marker(catchFish).addTo(map).bindPopup("Catch a Shrimp,25 sardines(lvl 5), herring(lvl 10), anchovy (lvl 15)");
+			var slayer = L.latLng([ 225.375, 844.1875 ]);
+			L.marker(slayer).addTo(map).bindPopup("Check Your Slayer Task(Enchanted Gem (1 coin) ), Equip a Spiny Helmet(650coins, 5 def) ");
+			var cry = L.latLng([ 371.75, 979.625 ]);
+			L.marker(cry).addTo(map).bindPopup("Cry in a wheat field");
+			var dance = L.latLng([ 324.9375, 1017.5 ]);
+			L.marker(dance).addTo(map).bindPopup("Dance in a graveyard");
+			var mossgiant = L.latLng([ 330.5, 765.5 ]);
+			L.marker(mossgiant).addTo(map).bindPopup("Defeat a Moss Giant");
+			var orangeCape = L.latLng([ 353.9375, 944.25 ]);
+			L.marker(orangeCape).addTo(map).bindPopup("Dye a cape orange(2 onions, 3 red berries, 10 coins");
+			var eatBanana = L.latLng([ 307.5, 866.5 ]);
+			L.marker(eatBanana).addTo(map).bindPopup("Eat a Banana");
+			var rangeGear = L.latLng([ 436.9375, 1011.125 ]);
+			L.marker(rangeGear).addTo(map).bindPopup("Equip a Studded Body and Chaps (1600 coins)");
+			var elementalStaff = L.latLng([ 435.5, 998.875 ]);
+			L.marker(elementalStaff).addTo(map).bindPopup("Equip an Elemental Staff (1500 coins)");
+			var torch = L.latLng([ 214.6875, 823.5 ]);
+			L.marker(torch).addTo(map).bindPopup("Light a Torch(6 coins)");
+			var redberries = L.latLng([ 406.999771, 1028.124457 ]);
+			L.marker(redberries).addTo(map).bindPopup("redberries");
+			var earlyMining = L.latLng([ 402.875, 1037.875 ]);
+			L.marker(earlyMining).addTo(map).bindPopup("mine copper ore, 5 tin");
+			var pickPocket = L.latLng([ 334.125, 1007 ]);
+			L.marker(pickPocket).addTo(map).bindPopup("Pickpocket a Man or a Woman");
+			var rake = L.latLng([ 341.5, 994.625 ]);
+			L.marker(rake).addTo(map).bindPopup("Rake a Farming Patch");
+			var smithing = L.latLng([ 431.625, 992 ]);
+			L.marker(smithing).addTo(map).bindPopup("Smith a Bronze full hel(LVL7)m, Bronze plateskirt(LVL16), 150 iron arrowtips(LVL20), 10 steel bolts(LVL33)");
+			var visitDeath = L.latLng([ 323.8125, 1015.875 ]);
+			L.marker(visitDeath).addTo(map).bindPopup("Visit Death's Domain");
+			var hatstand = L.latLng([ 358.0625, 947.52557 ]);
+			L.marker(hatstand).addTo(map).bindPopup("Put a hat on a hat stand, or try at least");
+			var candle = L.latLng([ 315.625, 983.8125 ]);
+			L.marker(candle).addTo(map).bindPopup("Buy a candle in Lumbridge");
+			var riverFishing = L.latLng([ 349.0625, 1015.6875 ]);
+			L.marker(riverFishing).addTo(map).bindPopup("Catch 20 Pike (lvl 25, rod and bait)");
+			var killWizards = L.latLng([ 307.5, 955.5 ]);
+			L.marker(killWizards).addTo(map).bindPopup("wizard hat, robe and water talisman from wizards");
+			var haystack = L.latLng([ 375.0625, 974.5 ]);
+			L.marker(haystack).addTo(map).bindPopup("Dig in a hay stack for a needle");
+			var flour = L.latLng([ 376.6875, 982.12 ]);
+			L.marker(flour).addTo(map).bindPopup("Make some Flour in a windmill");
+			var masterFarmer = L.latLng([ 350.4375, 942.0625 ]);
+			L.marker(masterFarmer).addTo(map).bindPopup("Successfully pickpocket from a Master farmer");
+			var sawmill = L.latLng([ 463.1875, 1044.8125 ]);
+			L.marker(sawmill).addTo(map).bindPopup("10 planks (1k), 5 bolts of cloth (3250 coins)");
+			var catchBird = L.latLng([ 151, 514.5 ]);
+			L.marker(catchBird).addTo(map).bindPopup("Catch any bird with a Bird Snare");
+			var flax = L.latLng([ 225.25, 519.125 ]);
+			L.marker(flax).addTo(map).bindPopup("Flax and Bird Snare");
+			var a = L.latLng([ 222.75, 563.375 ]);
+			L.marker(a).addTo(map).bindPopup("BJP");
+			var bunnies = L.latLng([ 220, 510.25 ]);
+			L.marker(bunnies).addTo(map).bindPopup("Kill 5 Bunnies");
+			var rocks = L.latLng([ 137.5, 531.375 ]);
+			L.marker(rocks).addTo(map).bindPopup("copper, tin, iron, coal (maybe less crowded early)")
+			var smeltOre = L.latLng([ 466.125, 955.0625 ]);
+			L.marker(smeltOre).addTo(map).bindPopup("Use a Furnace to smelt a Bronze Bar, Iron Bar, Steel Bar (if mining relic doesn't do it)");
+			
+			
+			/*
+			var a = L.latLng([ 0, 0 ]);
+			L.marker(a).addTo(map).bindPopup("xxx");
+			*/
+			
+			
+
+		</script>
+	</td>
+	
+    <td style="vertical-align:top">
+	<!--general tasks on the side of the map with toggles-->
+		<h2>General Tasks</h2>
+		
+		<button class="collapsible">Woodcutting, Firemaking, Fletching, Herblore</button>
+		<div class="content">
+			<table>
+				<tr>
+					<button class="generalTaskList">Chop any kind of logs using a Steel Axe</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Chop any kind of logs using a Rune Axe (41 Woodcutting)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Chop 100 Willow Logs(30 Woodcutting)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Chop 50 Maple Logs(45 Woodcutting)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Burn 100 Willow Logs (30 Firemaking)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Burn 25 Maple Logs (45 Firemaking)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Fletch 150 Iron Arrows(15 Fletching)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Fletch an Oak Shortbow(20 fletching, bowstring (isle of souls or beekeeper event))</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Fletch 25 Oak Stocks(24 Fletching)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Fletch a Willow Shortbow (u) (35 Fletching)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Fletch Some Arrow Shafts</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Fletch 1000 arrow shafts</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Create an Antipoison (5 Herblore, Marrentill, Unicorn Horn Dust)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Create a Compost Potion (22 Herblore, Harralander, Volcanic Ash)</button>
+				</tr>
+				
+			</table>
+		</div>
+		
+		<button class="collapsible">Combat</button>
+		<div class="content">
+			<table>
+				<tr>
+					<button class="generalTaskList">Kill an Imp with an earth spell</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Cast any blast spell (41 Magic and Death Rune)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Cast the High Level Alchemy spell (55 Magic)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Cast any teleport spell that uses Law Runes (25 Magic)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Cast the Home Teleport spell</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Equip some Steel armour (5 Defence)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Equip some Black armour (10 Defence)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Equip a Full Mithril Set (20 Defence)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Equip a Full Adamant Set (30 Defence)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Equip a Willow Shield (30 Defence)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Equip an Iron dagger</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Equip a Mithril Weapon (20 Attack)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Equip an Adamant Weapon (30 Attack)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Equip a Rune Weapon	(40 Attack)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Reach a Prayer Bonus of 15 (Monk Robes + Rune Mace)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Equip a Maple Shortbow (30 Ranged)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Equip a Yew Shortbow (40 Ranged)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Equip a Dorgeshuun Crossbow (28 Ranged)</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Perform a Special Attack</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Scatter some Ashes</button>
+				</tr>
+							<tr>
+					<button class="generalTaskList">Bury Some Bones</button>
+				</tr>
+			</table>
+						
+		</div>
+		
+		<button class="collapsible">Quests</button>
+		<div class="content">
+			<table>
+				<tr>
+					<button class="generalTaskList">Complete Sheep Shearer</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Complete Demon Slayer</button>
+				</tr>
+				<tr>
+					<button class="generalTaskList">Complete Vampyre Slayer</button>
+				</tr>
+				
+			</table>
+		</div>
+		
+		
+		
+
+		<script>
+
+		var coll = document.getElementsByClassName("collapsible");
+		var i;
+
+		for (i = 0; i < coll.length; i++) {
+		  coll[i].addEventListener("click", function() {
+			this.classList.toggle("active");
+			var content = this.nextElementSibling;
+			if (content.style.maxHeight){
+			  content.style.maxHeight = null;
+			} else {
+			  content.style.maxHeight = content.scrollHeight + "px";
+			} 
+		  });
+		};
+		
+		var tasks = document.getElementsByClassName("generalTaskList");
+		var j;
+
+		for (j = 0; j < tasks.length; j++) {
+			var task = tasks[j];
+			task.addEventListener("click", function() {
+			this.classList.toggle("strike");
+		  });
+		};
+		</script>
+		
+		
+	</td>
+  </tr>
+</table>
+
+
+</body>
+</html>
