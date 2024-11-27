@@ -99,37 +99,46 @@
 			map.setView( [350, 980], 3);
 			
 			var popup = L.popup();
+			var openMarker = null;
+			var markerClicked;
 
-			/*function onMapClick(e) {
-				popup
+			function onMapClick(e) {
+				//navigator.clipboard.writeText("L.marker(L.latLng([" + e.latlng.lat + ", " + e.latlng.lng + "])).addTo(map).bindPopup(\"text\");");
+				/*popup
+				"L.marker(" + e.latlng.lat + ", " + e.latlng.lng + ").addTo(map).bindPopup("text");"
 					.setLatLng(e.latlng)
 					.setContent(e.latlng.toString())
-					.openOn(map);
+					.openOn(map);*/
 					}
-			map.on('click', onMapClick);*/
+			map.on('click', onMapClick);
 			
+			
+			/*
+			map.on('popupopen', function(e) {
+				marker = e.popup._source;
+			});
+			
+			openMarker = markerClicked;
+			
+			input.addEventListener("keypress", logKey);
+			function logKey(e) {
+				if (openMarker != null && e == "z"){
+					map.removeLayer(openMarker);
+				}
+			};*/
 			
 			//karamja tasks
-			var karambwanji = L.latLng([ 240, 815 ]);
-			L.marker(karambwanji).addTo(map).bindPopup("Catch a Karambwanji");
-			var bananaCrate = L.latLng([ 304.5, 878.37 ]);
-			L.marker(bananaCrate).addTo(map).bindPopup("Fill a Crate With Bananas(10 bananas)");
-			var killSnake = L.latLng([ 308, 849 ]);
-			L.marker(killSnake).addTo(map).bindPopup("Kill a Snake in Karamja");
-			var pineapple = L.latLng([ 309, 791 ]);
-			L.marker(pineapple).addTo(map).bindPopup("Pick a Pineapple on Karamja");
-			var agilityTicket = L.latLng([ 322.8, 816 ]);
-			L.marker(agilityTicket).addTo(map).bindPopup("Buy a Snapdragon (10 Arena Tickets)");
-			var karamjaSalmon = L.latLng([ 221.6, 838.3 ]);
-			L.marker(karamjaSalmon).addTo(map).bindPopup("Catch a Salmon (30 fishing)");
-			var shiloShortcut = L.latLng([ 222.125, 841.625 ]);
-			L.marker(shiloShortcut).addTo(map).bindPopup("Take a Shortcut Across the Shilo Village River (32 Agility)");
-			var paramayaInn = L.latLng([ 232.25, 840.75 ]);
-			L.marker(paramayaInn).addTo(map).bindPopup("Buy Paramaya Ticket(35 coins)");
-			var brimDungeon = L.latLng([ 305.5, 785.9375 ]);
-			L.marker(brimDungeon).addTo(map).bindPopup("Kill Greater Demon, Steel dragon (875 coins, axe)");
-			var killTzhaar = L.latLng([ 311.875, 837.875 ]);
-			L.marker(killTzhaar).addTo(map).bindPopup("Defeat a TzHaar");
+			
+			L.marker(L.latLng([ 240, 815 ])).addTo(map).bindPopup("Catch a Karambwanji");
+			L.marker(L.latLng([ 304.5, 878.37 ])).addTo(map).bindPopup("Fill a Crate With Bananas(10 bananas)");
+			L.marker(L.latLng([ 308, 849 ])).addTo(map).bindPopup("Kill a Snake in Karamja");
+			L.marker(L.latLng([ 309, 791 ])).addTo(map).bindPopup("Pick a Pineapple on Karamja");
+			L.marker(L.latLng([ 322.8, 816 ])).addTo(map).bindPopup("Buy a Snapdragon (10 Arena Tickets)");
+			L.marker(L.latLng([ 221.6, 838.3 ])).addTo(map).bindPopup("Catch 50 Salmon (30 fishing)");
+			L.marker(L.latLng([ 222.125, 841.625 ])).addTo(map).bindPopup("Take a Shortcut Across the Shilo Village River (32 Agility)");
+			L.marker(L.latLng([ 232.25, 840.75 ])).addTo(map).bindPopup("Buy Paramaya Ticket(35 coins)");
+			L.marker(L.latLng([ 305.5, 785.9375 ])).addTo(map).bindPopup("Kill Greater Demon, Steel dragon (875 coins, axe)");
+			L.marker(L.latLng([ 311.875, 837.875 ])).addTo(map).bindPopup("Defeat a TzHaar");
 
 
 			//Misthalin tasks
@@ -302,14 +311,114 @@
 			var smeltOre = L.latLng([ 466.125, 955.0625 ]);
 			L.marker(smeltOre).addTo(map).bindPopup("Use a Furnace to smelt a Bronze Bar, Iron Bar, Steel Bar (if mining relic doesn't do it)");
 			
+			L.marker(L.latLng([380.4375, 1011.125])).addTo(map).bindPopup("plant barley, buy 3 compost, protect barley");
+			L.marker(L.latLng([588.75, 914.125])).addTo(map).bindPopup("Defeat a Chaos Dwarf in the Wilderness");
+			L.marker(L.latLng([663.625, 925.5])).addTo(map).bindPopup("Enter the Deep Wilderness Dungeon and Defeat a Fire Giant in the Wilderness");
+			L.marker(L.latLng([577.625, 912.375])).addTo(map).bindPopup("Enter the Wilderness God Wars Dungeon");
+			L.marker(L.latLng([672.875, 990.75])).addTo(map).bindPopup("Enter the Wilderness Resource Area");
+			L.marker(L.latLng([582.875, 894.875])).addTo(map).bindPopup("Equip a team cape");
+			L.marker(L.latLng([628.625, 1000.5])).addTo(map).bindPopup("Open a Looting Bag");
+			L.marker(L.latLng([663.5, 976.75])).addTo(map).bindPopup("Use a Lever to Teleport to Edgeville");
+			L.marker(L.latLng([678.75, 946.75])).addTo(map).bindPopup("Use the Bank at the Mage Arena");
+			L.marker(L.latLng([526.625, 969.75])).addTo(map).bindPopup("Visit Ferox Enclave");
+			L.marker(L.latLng([629.25, 998.125])).addTo(map).bindPopup("Bury Some Lava Dragon Bones");
+			L.marker(L.latLng([668.25, 953.5])).addTo(map).bindPopup("Cast God Spells");
+			L.marker(L.latLng([674.5, 905.5])).addTo(map).bindPopup("Complete the Wilderness Agility Course(52lvl)");
+			L.marker(L.latLng([559, 969.75])).addTo(map).bindPopup("Defeat a Green Dragon in the Wilderness");
+			L.marker(L.latLng([620.25, 999])).addTo(map).bindPopup("Defeat a Lava Dragon in the Wilderness");
+			L.marker(L.latLng([624.75, 895.5])).addTo(map).bindPopup("Defeat the Chaos Fanatic");
+			L.marker(L.latLng([560, 899])).addTo(map).bindPopup("Defeat the Crazy Archaeologist and Equip a Fedora");
+			L.marker(L.latLng([668.25, 1075])).addTo(map).bindPopup("Destroy the one ring to rule them all(gold ring)");
+			L.marker(L.latLng([538.5, 939.625])).addTo(map).bindPopup("Equip a Bracelet of Ethereum");
+			L.marker(L.latLng([664.87, 956.50])).addTo(map).bindPopup("Equip a God Cape");
+			L.marker(L.latLng([577.875, 914.875])).addTo(map).bindPopup("Obtain an Ecumenical Key");
+			L.marker(L.latLng([634.75, 943.25])).addTo(map).bindPopup("Open 1 Muddy Chest");
+			L.marker(L.latLng([524.5, 1074.875])).addTo(map).bindPopup("Open 1 Zombie Pirate Locker");
+			L.marker(L.latLng([615.75, 881.875])).addTo(map).bindPopup("Sacrifice Some Dragon Bones at the Chaos Temple");
+			L.marker(L.latLng([532.375, 974.125])).addTo(map).bindPopup("Order a Drink at The Old Nite");
+			L.marker(L.latLng([679.5, 913.5])).addTo(map).bindPopup("Open 15 Larran's Chests");
+			L.marker(L.latLng([496.6, 953.5])).addTo(map).bindPopup("Use the Abyss");
+			L.marker(L.latLng([664.375, 991.625])).addTo(map).bindPopup("Catch 100 Dark Crabs (85)");
+			L.marker(L.latLng([592.125, 971.375])).addTo(map).bindPopup("Equip 500 Black Chinchompas");
+			L.marker(L.latLng([672.375, 1037.75])).addTo(map).bindPopup("Loot a dragonstone from the Rogues Castle");
+			L.marker(L.latLng([523.375, 1014.25])).addTo(map).bindPopup("Use a teleport anchoring scroll");
+			L.marker(L.latLng([289.6875, 858.25])).addTo(map).bindPopup("Cook 100 Karambwans(30 Fishing and tai bwo wanna trio)");
+			L.marker(L.latLng([600.8125, 767.875])).addTo(map).bindPopup("Trap a Sabre-toothed Kyatt (55 hunter)");
+			L.marker(L.latLng([577.875, 679])).addTo(map).bindPopup("Kill a Rock Lobster, a Wallasalki, a Dagannoth");
+			L.marker(L.latLng([636.75, 509])).addTo(map).bindPopup("Cast Moonclan Teleport");
+			L.marker(L.latLng([668.125, 841.625])).addTo(map).bindPopup("Use Some Icy Basalt to Teleport to Weiss(72 mining)");
+			L.marker(L.latLng([547.75, 740.125])).addTo(map).bindPopup("Steal some fish from a Fish stall(42lvl)");
+			L.marker(L.latLng([544.5, 755.875])).addTo(map).bindPopup("Steal a Cow bell in Rellekka");
+			L.marker(L.latLng([573.375, 788.125])).addTo(map).bindPopup("Kill a Brine Rat (47 slayer)");
+			L.marker(L.latLng([640.75, 497.25])).addTo(map).bindPopup("Kill a Suqah");
+			L.marker(L.latLng([563, 750.375])).addTo(map).bindPopup("Fill up 20 buckets of sand in Rellekka");
+			L.marker(L.latLng([556, 748.875])).addTo(map).bindPopup("Equip a Helm of Neitiznot (55def, 50k)");
+			L.marker(L.latLng([602.875, 590.1875])).addTo(map).bindPopup("Equip a full set of Yakhide Armour");
+			L.marker(L.latLng([531, 677])).addTo(map).bindPopup("Equip a Damaged God book");
+			L.marker(L.latLng([544.625, 734])).addTo(map).bindPopup("Deposit an Item Using Peer the Seer");
+			L.marker(L.latLng([520.0625, 810.4375])).addTo(map).bindPopup("Defeat a Turoth(55,leafbladed weapon), Jelly(52)");
+			L.marker(L.latLng([564.375, 779.75])).addTo(map).bindPopup("Defeat a Troll in the Fremennik Province");
+			L.marker(L.latLng([635.875, 513.1875])).addTo(map).bindPopup("Craft 50 Astral Runes(40runecraft)");
+			L.marker(L.latLng([597.5, 776.125])).addTo(map).bindPopup("	Catch a Snowy Knight(35), a Sapphire Glacialis(25)");
+			L.marker(L.latLng([595.875, 771.875])).addTo(map).bindPopup("Catch a Sabre-toothed Kebbit");
+			L.marker(L.latLng([324, 861])).addTo(map).bindPopup("Catch 100 Lobsters, 50 Swordfish");
 			
-			/*
-			var a = L.latLng([ 0, 0 ]);
-			L.marker(a).addTo(map).bindPopup("xxx");
-			*/
+			
+			L.marker(L.latLng([162.25, 1058])).addTo(map).bindPopup("Kill a Billy Goat");
+			L.marker(L.latLng([159, 966.75])).addTo(map).bindPopup("25 Tempoross Kill");
+			L.marker(L.latLng([295, 1076.875])).addTo(map).bindPopup("Catch a Salmon(??)");
+			L.marker(L.latLng([325, 1031.5])).addTo(map).bindPopup("Complete the Al Kharid Agility Course");
+			L.marker(L.latLng([356.125, 1048.75])).addTo(map).bindPopup("Craft a Fire Rune");
+			L.marker(L.latLng([260.625, 1132.5])).addTo(map).bindPopup("Drink some of Ali's tea");
+			L.marker(L.latLng([278.125, 1020.375])).addTo(map).bindPopup("Enter the Kalphite Lair, Defeat a Kalphite Guardian");
+			L.marker(L.latLng([190.5, 1012.75])).addTo(map).bindPopup("Set a mummy ablaze");
+			L.marker(L.latLng([207.5, 1065.125])).addTo(map).bindPopup("Take a Carpet Ride from Pollnivneach to Sophanem");
+			L.marker(L.latLng([317.75, 1039.375])).addTo(map).bindPopup("Turn in a Winter Sq'irkjuice to Osman");
+			L.marker(L.latLng([299.25, 1053.875])).addTo(map).bindPopup("50Summer, 25 autumn, 10 spring, 1 winter");
+			L.marker(L.latLng([183.625, 1103])).addTo(map).bindPopup("Use the Bank in Nardah");
+			L.marker(L.latLng([282, 1092])).addTo(map).bindPopup("Catch 30 Orange Salamanders");
+			L.marker(L.latLng([128.25, 1050.3125])).addTo(map).bindPopup("Craft some Pottery In Sophanem");
+			L.marker(L.latLng([203.125, 1069.6875])).addTo(map).bindPopup("Defeat a Crocodile");
+			L.marker(L.latLng([158.6875, 1030.9375])).addTo(map).bindPopup("Defeat a Crocodile");
+			L.marker(L.latLng([305.25, 1072.625])).addTo(map).bindPopup("Equip the Colossal Blade");
+			L.marker(L.latLng([224.625, 984.75])).addTo(map).bindPopup("Kill 30 Bandits");
+			L.marker(L.latLng([138.125, 1053.125])).addTo(map).bindPopup("Kill 10 Locusts");
+			L.marker(L.latLng([97.375, 1053.625])).addTo(map).bindPopup("Mine 15 Granite in the Necropolis(45)");
+			L.marker(L.latLng([192.5, 986.25])).addTo(map).bindPopup("Mine 30 Chunks of Granite(45), Have Drew create 500 buckets");
+			L.marker(L.latLng([225.75, 1072.375])).addTo(map).bindPopup("Use a blackjack to stun a monster");
+			L.marker(L.latLng([160.75, 1074.25])).addTo(map).bindPopup("	Turn in a Pyramid Top to Simon Templeton");
+			L.marker(L.latLng([215.125, 1067.75])).addTo(map).bindPopup("Knock out and then pickpocket a Menaphite Thug 50 times");
+			L.marker(L.latLng([542.5, 756.8125])).addTo(map).bindPopup("Kill a Rooster");
+			L.marker(L.latLng([569.8125, 765.5625])).addTo(map).bindPopup("Defeat a Rock Crab in the Fremennik Province");
+			L.marker(L.latLng([516.875, 810.625])).addTo(map).bindPopup("Defeat a Cockatrice(25) and a Pyrefiend(30)");
+			L.marker(L.latLng([661.5, 486])).addTo(map).bindPopup("Use the Bank");
+			L.marker(L.latLng([609.375, 596.375])).addTo(map).bindPopup("Use the Bank");
+			L.marker(L.latLng([605.25, 634.375])).addTo(map).bindPopup("Use the Bank");
+			L.marker(L.latLng([530.625, 783])).addTo(map).bindPopup("Cut the Swaying Tree(40)");
+			L.marker(L.latLng([601, 588.25])).addTo(map).bindPopup("Chop down an arctic pine tree");
 			
 			
-
+			//Mory
+			
+			L.marker(L.latLng([440.125, 1201.625])).addTo(map).bindPopup("Craft a Snelm");
+			L.marker(L.latLng([458.625, 1138])).addTo(map).bindPopup("Defeat a Werewolf in Morytania");
+			L.marker(L.latLng([468.125, 1211.25])).addTo(map).bindPopup("Visit Port Phasmatys");
+			L.marker(L.latLng([463.375, 1229.375])).addTo(map).bindPopup("Visit Harmony Island");
+			L.marker(L.latLng([464.75, 1233.75])).addTo(map).bindPopup("Visit Mos Le'Harmless");
+			L.marker(L.latLng([380.625, 1139.25])).addTo(map).bindPopup("Achieve 100% Shades of Mort'Ton Sanctity");
+			L.marker(L.latLng([440.5, 1153.625])).addTo(map).bindPopup("Catch a Swamp Lizard in Morytania");
+			L.marker(L.latLng([461.375, 1140.25])).addTo(map).bindPopup("Complete the Canifis Agility Course");
+			L.marker(L.latLng([486.25, 1104.125])).addTo(map).bindPopup("Defeat a Gargoyle(75), an Abyssal Demon(85)");
+			L.marker(L.latLng([401.5, 1182.25])).addTo(map).bindPopup("Defeat a Vyrewatch Sentinel");
+			L.marker(L.latLng([371, 1166.25])).addTo(map).bindPopup("Equip a Piece of any Barrows Armour Set");
+			L.marker(L.latLng([456.8125, 1222.5])).addTo(map).bindPopup("Smelt a Steel Bar in Port Phasmatys");
+			L.marker(L.latLng([394.875, 1184.9375])).addTo(map).bindPopup("Pet Frank");
+			L.marker(L.latLng([459, 1127.375])).addTo(map).bindPopup("Have the Taxidermist stuff something for you");
+			L.marker(L.latLng([382.875, 1183.0625])).addTo(map).bindPopup("Cook 20 Sharks in Darkmeyer");
+			L.marker(L.latLng([437, 1108.25])).addTo(map).bindPopup("Feed a ghast some sweets");
+			
+			
+	
 		</script>
 	</td>
 	
